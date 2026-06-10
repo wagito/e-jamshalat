@@ -88,97 +88,116 @@ div{
 
 <script src="PrayTimesModi2026.js"></script>
 <script>
-//parameter-parameter
-nama=`Mushalla 'Aisyiah Suryoputran`;
-alamat=`Jalan Kasatriyan, Panembahan, Kraton`;
-kota=`Yogyakarta`;
-latitude=-7.8;
-longitude=110.4;
-timeZone=7;
-method=`Muhammadiyah`;
-ly=[62,20,94,20,31]; //layout  -->sudah disetting
-mnt=[0,0,0,0,0,0];    //koreksi waktu (fajar,duha,dhuhur,ashar,maghrib,isya) --sudah disetting
-iqm=[12,10,10,10,10]; //waktu iqamah (fajar,dhuhur,ashar,maghrib,isya)
-iht=2; //ihtiyati
+//mengambil variabel external mirip $_GET
+qs = window.location.search;   //query String
+up = new URLSearchParams(qs);  //url Parameter
+m = up.get('m');               //nama variabel external m (hmtl) disimpan sebai m (javascript)
+//console.log(m);
 
-time = Date.now();
-acak=Math.floor(Math.random() * 7);
-//atur background
-url='files/0/background'+acak+'.jpg?t='+time;
-document.body.style.backgroundImage=`url('${url}')`;
-//atur tulisan
-document.getElementById('nama').innerHTML=nama;
-document.getElementById('alamat').innerHTML=alamat+',&nbsp'+kota;
-document.getElementById('logo').src='files/0/logo.png?t='+time;
+fetch('https://script.google.com/macros/s/AKfycbxk_yAGZwuq2x-vqEbXDyIUw8Zmoch8qPYs17PZDCBJwbfXCPRXdbgpL2IY5HX86Elp/exec?m='+m)
+  .then(response=>response.json())
+  .then(datajs=>{     //jason 2D
+    data=datajs[0];   //ambil baris 0 sebagai larik 1D
+    main();
+    //console.log(datajs);  //tampilkan json 2D
+    //console.log(datajs[0]); //tampilkan json baris 0
+   })
+   .catch(error=>console.error("Error:",error));;
 
-//atur image dan cell-bg
-nimage=4; //jumlah image 4 karena mulai dari 0
-iimage=0;
-image=[];
-cellbg=[];
-for(i=0;i<nimage;i++)image[i]='files/0/image'+i+'.jpg';
-for(i=0;i<=6;i++)cellbg[i]='files/0/cell-bg'+(i+acak)+'.jpg';
+function main()
+{
+  //parameter-parameter
+  nama=data[2];
+  alamat= data[3];
+  kota=data[4];
+  latitude=data[5];
+  longitude=data[6];
+  timeZone=data[7];
+  method=data[8];
+  iqm=data[10].split(";").map(Number);
+  mnt=data[11].split(";").map(Number);
+  ly=data[12].split(";");
+  iht=2; //ihtiyati
 
-//layout
-h=window.innerHeight; //tinggi browser
-w=window.innerWidth;  //lebar browser
-hceltitle=Math.round(h*10/100);
-hcellogo=Math.round(h*13/100);
-hcelimg=Math.round(h*ly[0]/100);
-jamsize=Math.round(w*ly[1]/100);
-boxwidth=ly[2]+'%';
-boxtop=ly[3]+'px';
-boxleft=ly[4]+'px';
-document.getElementById('logo').height=hcellogo;
-document.getElementById('celtitle').height=hceltitle;
-document.getElementById('jamanalog').height=jamsize;
-document.getElementById('jamanalog').width=jamsize;
-document.getElementById('foto').height=hcelimg;
-document.getElementById('mainbox').width=boxwidth;
-document.getElementById('mainbox').style.marginTop=boxtop;  //marginTop kalau pada css margin-top
-document.getElementById('mainbox').style.marginLeft=boxleft;
+  time = Date.now();
+  acak=Math.floor(Math.random() * 7);
+  //atur background
+  url='files/0/background'+acak+'.jpg?t='+time;
+  document.body.style.backgroundImage=`url('${url}')`;
+  //atur tulisan
+  document.getElementById('nama').innerHTML=nama;
+  document.getElementById('alamat').innerHTML=alamat+',&nbsp'+kota;
+  document.getElementById('logo').src='files/0/logo.png?t='+time;
 
-//skrip jadual shalat
-date=new Date(); // today
-prayTimes.setMethod('Muhammadiyah');
-pt=prayTimes.getTimes(date, [latitude, longitude], timeZone);  //jogja
+  //atur image dan cell-bg
+  nimage=4; //jumlah image 4 karena mulai dari 0
+  iimage=0;
+  image=[];
+  cellbg=[];
+  for(i=0;i<nimage;i++)image[i]='files/0/image'+i+'.jpg';
+  for(i=0;i<=6;i++)cellbg[i]='files/0/cell-bg'+(i+acak)+'.jpg';
 
-times={imsak:plus(pt['imsak'],iht+mnt[0]),
-       fajar:plus(pt['fajr'],iht+mnt[0]),
-       terbit:pt['sunrise'],
-       duha:plus(pt['sunrise'],24+iht+mnt[1]),
-       dzuhur:plus(pt['dhuhr'],iht+mnt[2]),
-       ashar:plus(pt['asr'],iht+mnt[3]),
-       terbenam:pt['sunset'],
-       maghrib:plus(pt['maghrib'],iht+mnt[4]),
-       isya:plus(pt['isha'],iht+mnt[5])};
+  //layout
+  h=window.innerHeight; //tinggi browser
+  w=window.innerWidth;  //lebar browser
+  hceltitle=Math.round(h*10/100);
+  hcellogo=Math.round(h*13/100);
+  hcelimg=Math.round(h*ly[0]/100);
+  jamsize=Math.round(w*ly[1]/100);
+  boxwidth=ly[2]+'%';
+  boxtop=ly[3]+'px';
+  boxleft=ly[4]+'px';
+  document.getElementById('logo').height=hcellogo;
+  document.getElementById('celtitle').height=hceltitle;
+  document.getElementById('jamanalog').height=jamsize;
+  document.getElementById('jamanalog').width=jamsize;
+  document.getElementById('foto').height=hcelimg;
+  document.getElementById('mainbox').width=boxwidth;
+  document.getElementById('mainbox').style.marginTop=boxtop;  //marginTop kalau pada css margin-top
+  document.getElementById('mainbox').style.marginLeft=boxleft;
 
-day=date.getDay();
-date1=date.getDate();
-mounth=date.getMonth();
-year=date.getFullYear();
-tname=['Imsak','Fajar','Duha','Dzuhur','Ashar','Maghrib','Isya'];
-hari=['Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-bulan=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
+  //skrip jadual shalat
+  date=new Date(); // today
+  prayTimes.setMethod('Muhammadiyah');
+  pt=prayTimes.getTimes(date, [latitude, longitude], timeZone);  //jogja
 
-datef='<br>'+hari[day]+'<br>'+date1+'&nbsp'+bulan[mounth]+'&nbsp'+year;
-document.getElementById('date').innerHTML=datef;
+  times={imsak:plus(pt['imsak'],iht+mnt[0]),
+         fajar:plus(pt['fajr'],iht+mnt[0]),    
+         terbit:pt['sunrise'],
+         duha:plus(pt['sunrise'],24+iht+mnt[1]),
+         dzuhur:plus(pt['dhuhr'],iht+mnt[2]),
+         ashar:plus(pt['asr'],iht+mnt[3]),
+         terbenam:pt['sunset'],
+         maghrib:plus(pt['maghrib'],iht+mnt[4]),
+         isya:plus(pt['isha'],iht+mnt[5])};
 
-html='<table width=100% style=border-spacing:10px><tr>';
-for(i in tname)html+='<td width=10% background='+cellbg[i]+'>'+tname[i]+'<br>'+times[tname[i].toLowerCase()]+'</td>';
-html+='</table>';
-document.getElementById('jadual').innerHTML=html;
+  day=date.getDay();
+  date1=date.getDate();
+  mounth=date.getMonth();
+  year=date.getFullYear();
+  tname=['Imsak','Fajar','Duha','Dzuhur','Ashar','Maghrib','Isya']; //timename
+  hari=['Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  bulan=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
 
-// Get the modal
-modal=document.getElementById('modaltimer');
+  datef='<br>'+hari[day]+'<br>'+date1+'&nbsp'+bulan[mounth]+'&nbsp'+year;
+  document.getElementById('date').innerHTML=datef;
 
-//skrip jam analog
-const jamanalog=document.getElementById('jamanalog');
-const ctx=jamanalog.getContext('2d');
-let radius=jamanalog.height/2;
-ctx.translate(radius,radius);
-radius=radius*0.90;
-setInterval(drawClock,1000);
+  html='<table width=100% style=border-spacing:10px><tr>';
+  for(i in tname)html+='<td width=10% background='+cellbg[i]+'>'+tname[i]+'<br>'+times[tname[i].toLowerCase()]+'</td>';
+  html+='</table>';
+  document.getElementById('jadual').innerHTML=html;
+
+  // Get the modal
+  modal=document.getElementById('modaltimer');
+
+  //skrip jam analog
+  jamanalog=document.getElementById('jamanalog');
+  ctx=jamanalog.getContext('2d');
+  radius=jamanalog.height/2;
+  ctx.translate(radius,radius);
+  radius=radius*0.90;
+  setInterval(drawClock,1000);
+}
 
 function plus(t,p) //menambahkan menit pada string jam
 {
