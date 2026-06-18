@@ -85,6 +85,7 @@
   td img{
     display:inline-block;
     vertical-align:middle;
+    height:100%;
   }
   td.wadahjam{
     display:flex;
@@ -99,7 +100,7 @@
     box-shadow:inset 0 0 10px rgba(0,0,0,0.1);
   }
   .jampersen{
-    width: 80%;       /* Jam akan berukuran 80% dari lebar TD */
+    width: 70%;       /* Jam akan berukuran 70% dari lebar TD */
     height: auto;     /* Tinggi otomatis mengikuti proporsi agar tetap bulat sempurna */
     aspect-ratio: 1;  /* Memaksa rasio kanvas tetap 1:1 (kotak/lingkaran sempurna) */
     background-color: #ffffff;
@@ -117,7 +118,7 @@
 <body>
 
 <table>
-  <tr style='height:25%'>
+  <tr style='height:20%'>
     <td colspan=2>
       <table>
         <tr>
@@ -127,7 +128,7 @@
       </table>
     </td>
   </tr>
-  <tr style='height:50%'>
+  <tr style='height:60%'>
     <td style='width:25%'>
       <table>
         <tr style='height:20%'>
@@ -139,7 +140,7 @@
     </td>
     <td><img style='border-radius:20px;max-width:60cqw' id=foto src='files/0/image1.jpg'></td>
   </tr>
-  <tr style='height:25%'>
+  <tr style='height:20%'>
     <td colspan=2>
       <table>
         <tr><td id=jadual></td>
