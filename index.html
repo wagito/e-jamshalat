@@ -7,7 +7,7 @@
 <style>
   .neontext{
     font-family:titling;
-    font-size:4.2cqw;
+    font-size:9cqh;
     color:#fff;
     text-align:center;
     position:relative;
@@ -23,7 +23,7 @@
     width:100%; /* Full width */
     height:100%; /* Full height */
     overflow:auto; /* Enable scroll if needed */
-    background-color:rgb(0,0,0); /* Fallback color */
+//    background-color:rgb(0,0,0); /* Fallback color */
     background-color:rgba(0,0,0,0.4); /* Black w/ opacity */
   }
 
@@ -32,7 +32,7 @@
     background-color: #fefefe;
     margin: auto;
     padding: 20px; /* Ditambah sedikit agar tulisan tidak terlalu mepet */
-    border: 1px solid #888;
+    //border: 1px solid #888;
     width: 60%;
   
     /* SOLUSI 1: Ubah height menjadi min-height atau max-height */
@@ -70,31 +70,25 @@
     width:95%;
     height:95%;
     background-color:transparent;
-    border-collapse: separate;     /* Mengizinkan pemisahan antar sel */
-    border-spacing: 5px;
+    border-collapse:separate;     /* Mengizinkan pemisahan antar sel */
+    border-spacing:5px;
     border-radius:20px;
     border:1px solid white;
   }
   td{
-    border:1px solid #333;
     vertical-align:middle; 
     text-align:center;
     border-radius:20px;
-    border:0px solid blue;
+    //border:1px solid blue;
   }
-  td.wadahjam{
+  tdjam{
     display:flex;
     justify-content:center; /* Menengah secara horizontal */
     align-items:center;     /* Menengah secara vertikal */
     height:100%;            /* Mengisi seluruh tinggi cell */
     padding:0px;
   }
-  canvas{
-    background-color:#ffffff;
-    border-radius:90%;
-    box-shadow:inset 0 0 10px rgba(0,0,0,0.1);
-  }
-  .jampersen{
+  .canvjam{
     width: 70%;       /* Jam akan berukuran 70% dari lebar TD */
     height: auto;     /* Tinggi otomatis mengikuti proporsi agar tetap bulat sempurna */
     aspect-ratio: 1;  /* Memaksa rasio kanvas tetap 1:1 (kotak/lingkaran sempurna) */
@@ -113,29 +107,27 @@
 <body>
 
 <table>
-  <tr style='height:15%'>
+  <tr height=15%>
     <td colspan=2>
       <table>
         <tr>
-          <td style='width:25%'><img style='max-width:6cqw' id=logo></td>
-          <td><font style='width:75%;font-size:3cqw'><b id=nama>identitas</b></font><br><font style='font-size:1.5cqw'><span id=alamat>alamat</span></font></td>
+          <td width=25%><img style='max-height:14cqh' src='files/0/logo.png'></td>
+          <th><font style='font-size:3cqw' id=nama></font><br><font style='font-size:1.5cqw' id=alamat></font></th>
         </tr>
       </table>
     </td>
   </tr>
-  <tr style='height:70%'>
-    <td style='width:25%'>
+  <tr height=70%>
+    <td width=25%>
       <table>
-        <tr style='height:20%'>
-          <td id=celjam><div class=neontext id=clock></div></td>
-        <tr style='height:65%'>
-          <td class=wadahjam><canvas id=jamanalog width=500 height=500 class=jampersen onclick=timer(1)></canvas></td>
-        <tr style='font-size:2cqw;font-weight:bold'><td id=date></td>
+        <tr height=20%><td id=celjam><div class=neontext id=clock></div></td>
+        <tr height=65%><td class=tdjam><canvas id=jamanalog width=500 height=500 class=canvjam onclick=timer(1)></canvas></td>
+        <tr><th style='font-size:1.7cqw' id=date></th>
       </table>
     </td>
     <td><img style='max-height:56cqh;border-radius:20px;max-width:56cqw' id=foto src='files/0/image0.jpg'></td>
   </tr>
-  <tr style='height:20%'>
+  <tr>
     <td colspan=2>
       <table>
         <tr><td id=jadual></td>
@@ -197,7 +189,6 @@ function main()
   //atur tulisan
   document.getElementById('nama').innerHTML=nama;
   document.getElementById('alamat').innerHTML=alamat+',&nbsp'+kota;
-  document.getElementById('logo').src='files/0/logo.png?t='+time;
 
   //atur image dan cell-bg
   nimage=4; //jumlah image 4 karena mulai dari 0
@@ -293,7 +284,7 @@ function waktushalat(t)
   else if(t==times['ashar'])return iqm[2];
   else if(t==times['maghrib'])return iqm[3];
   else if(t==times['isya'])return iqm[4];
-  else if(t=='09:05')return 2; //klik jam utk tampil timer, ini hanya utk mencoba munculnya timer
+  //else if(t=='09:05')return 2; //klik jam utk tampil timer, ini hanya utk mencoba munculnya timer
   //else if(minutemin(t,'14:51')<2)return 2  //mencoba mengubah, apabila saat waktu sudah terlewat, belumbisa
   else if(t=='00:10'||t=='01:10')location.reload();  //tiap jam 00:10 atau 01:10 malam reload page menyesuakan waktu
   else return 0;
